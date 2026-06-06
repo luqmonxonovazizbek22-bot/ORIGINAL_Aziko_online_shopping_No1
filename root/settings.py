@@ -11,9 +11,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-local-dev-key-change-me')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DJANGO_DEBUG', '1') == '1'
+# # SECURITY WARNING: don't run with debug turned on in production!
+# DEBUG = os.environ.get('DJANGO_DEBUG', '1') == '1'
 
+DEBUG = False
 ALLOWED_HOSTS = ['*']
 
 
@@ -31,6 +32,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     # WhiteNoise olib tashlandi: developmentda runserver uchun shart emas.
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -134,6 +136,6 @@ EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER or 'noreply@azikomarket.local'
+EMAIL_HOST_USER = "zayniddinovshaxriyor07@gmail.com"
+EMAIL_HOST_PASSWORD = "vyhf kiff jjtn pvmb"
+
