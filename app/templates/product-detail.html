@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ product.title }} | AZIKO MARKET</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=11">
+</head>
+<body>
+<div class="top-ribbon"></div>
+<nav class="navbar">
+    <div class="container nav-inner">
+        <a class="brand" href="{% url 'index' %}"><img src="{% static 'images/logo.png' %}" alt="Aziko Market logo"></a>
+        <div class="nav-links">
+            <a href="{% url 'index' %}">Home</a><a href="{% url 'product' %}">Mahsulotlar</a><a href="{% url 'blog' %}">Blog</a><a href="{% url 'about' %}">Biz haqimizda</a><a href="{% url 'contact' %}">Aloqa</a><a href="{% url 'ai_chat' %}">AI yordam</a>
+        </div>
+        <div class="nav-actions">
+            {% if user.is_authenticated %}<a class="btn-outline" href="{% url 'logout' %}">Chiqish</a>{% else %}<a class="btn-outline" href="{% url 'login' %}">Kirish</a>{% endif %}
+            <a class="btn" href="{% url 'cart' %}">Savatcha {{ cart_items_count }}</a>
+        </div>
+    </div>
+</nav>
+<main>
+    <section class="section">
+        <div class="container split">
+            <div class="reveal detail-image-wrap">
+                <img class="detail-visual detail-image" src="{{ product.image_url }}" alt="{{ product.title }}">
+            </div>
+            <div class="reveal delay-1">
+                <span class="eyebrow">{{ product.category }}</span>
+                <h1 class="title product-title-detail">{{ product.title }}</h1>
+                <p class="lead">{{ product.description }}</p>
+                <div class="price">{{ product.price }} so'm</div>
+                {% if product.old_price %}<p>Oldingi narx: <del>{{ product.old_price }} so'm</del> {% if product.discount_percent %}— {{ product.discount_percent }}% chegirma{% endif %}</p>{% endif %}
+                <div class="card" style="margin:22px 0">
+                    <h3>Mahsulot ma'lumoti</h3>
+                    <p><strong>Rang:</strong> {{ product.color|default:'kiritilmagan' }}</p>
+                    <p><strong>O'lcham / Variant:</strong> {{ product.sizes|default:'kiritilmagan' }}</p>
+                    <p><strong>Omborda:</strong> {% if product.in_stock %}Bor{% else %}Yo'q{% endif %}</p>
+                    <p><strong>Review:</strong> ★ {{ product.review }}</p>
+                </div>
+                <form method="post" action="{% url 'add_to_cart' product.pk %}" style="display:inline-block">
+                    {% csrf_token %}
+                    <button class="btn" type="submit">Savatchaga qo'shish</button>
+                </form>
+                <a class="btn-outline" href="{% url 'ai_chat' %}" style="margin-left:10px">AI dan so'rash</a>
+            </div>
+        </div>
+    </section>
+    {% if similar_products %}
+    <section class="section">
+        <div class="container">
+            <div class="section-head">
+                <div>
+                    <span class="eyebrow">Similar products</span>
+                    <h2>O'xshash mahsulotlar</h2>
+                    <p>AI bir xil kategoriya va mashhurlikka qarab sizga yaqin variantlarni chiqaradi.</p>
+                </div>
+                <a class="btn-outline" href="{% url 'ai_chat' %}">AI bilan taqqoslash</a>
+            </div>
+            <div class="grid-4">
+                {% for item in similar_products %}
+                <div class="card product-card reveal delay-1">
+                    <a href="{% url 'product_detail' item.pk %}">
+                        <img class="product-photo" src="{{ item.image_url }}" alt="{{ item.title }}">
+                        <div class="meta"><span>{{ item.category }}</span><span>★ {{ item.review }}</span></div>
+                        <h3>{{ item.title }}</h3>
+                        <p>{{ item.description|default:'O‘xshash mahsulot'|truncatechars:85 }}</p>
+                        <div class="meta"><span class="price">{{ item.price }} so'm</span></div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    {% endif %}
+</main>
+<footer class="footer"><div class="container footer-grid"><div><img class="mini-logo" src="{% static 'images/logo.png' %}" alt="Aziko Market"><h3>AZIKO MARKET</h3><p>Zamonaviy online market va AI support.</p></div><div><h4>Sahifalar</h4><p><a href="{% url 'product' %}">Mahsulotlar</a></p><p><a href="{% url 'blog' %}">Blog</a></p></div><div><h4>Yordam</h4><p><a href="{% url 'checkout' %}">Checkout</a></p><p><a href="{% url 'ai_chat' %}">AI yordam</a></p></div><div><h4>Aloqa</h4><p>+998 90 000 00 00</p><p>hello@azikomarket.uz</p></div></div></footer>
+{% include 'includes/ai_widget.html' %}
+</body>
+</html>

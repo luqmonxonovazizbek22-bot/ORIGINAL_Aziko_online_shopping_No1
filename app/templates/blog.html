@@ -1,0 +1,98 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog | AZIKO MARKET</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=11">
+</head>
+<body>
+<div class="top-ribbon"></div>
+<nav class="navbar">
+    <div class="container nav-inner"><a class="brand" href="{% url 'index' %}"><img src="{% static 'images/logo.png' %}"
+                                                                             alt="Aziko Market logo"></a>
+        <div class="nav-links">
+            <a href="{% url 'index' %}">Home</a>
+            <a href="{% url 'product' %}">Mahsulotlar</a>
+            <a href="{% url 'blog' %}">Blog</a>
+            <a href="{% url 'about' %}">Biz haqimizda</a>
+            <a href="{% url 'contact' %}">Aloqa</a>
+        </div>
+        <div class="nav-actions"><a class="btn-outline" href="{% url 'login' %}">Kirish</a><a class="btn" href="{% url 'cart' %}">Savatcha</a>
+        </div>
+    </div>
+</nav>
+<main>
+    <section class="section">
+        <div class="container">
+            <div class="section-head">
+                <div><span class="eyebrow">Journal</span>
+                    <h2>Aziko Market blog</h2>
+                    <p>Dizayn, dasturxon estetikasi va premium brending haqida maqolalar.</p></div>
+            </div>
+            <div class="toolbar"><input class="input" placeholder="Maqola qidirish...">
+                <div class="chips"><span class="chip active">Hammasi</span><span class="chip">Design</span><span
+                        class="chip">Food</span><span class="chip">Heritage</span></div>
+                <select style="max-width:220px">
+                    <option>Eng yangi</option>
+                    <option>Eng ko'p o'qilgan</option>
+                </select></div>
+            <div class="grid-3">
+                <div class="card reveal"><a href="{% url 'blog' %}">
+                    <div class="blog-cover">✦</div>
+                    <div class="meta"><span>Design</span><span>12 May</span></div>
+                    <h3>Oltin rang psixologiyasi</h3>
+                    <p>Premium brend hissini kuchaytiruvchi ranglar va teksturalar.</p></a></div>
+                <div class="card reveal delay-1"><a href="{% url 'blog' %}">
+                    <div class="blog-cover">❀</div>
+                    <div class="meta"><span>Heritage</span><span>18 May</span></div>
+                    <h3>Sharqona ornament siri</h3>
+                    <p>Gul va barg naqshlarining dizayndagi nozik ma'nosi.</p></a></div>
+                <div class="card reveal delay-2"><a href="{% url 'blog' %}">
+                    <div class="blog-cover">☕</div>
+                    <div class="meta"><span>Food</span><span>24 May</span></div>
+                    <h3>Dasturxon estetikasi</h3>
+                    <p>Uyda restoran darajasidagi ko'rinish yaratish yo'llari.</p></a></div>
+                <div class="card reveal"><a href="{% url 'blog' %}">
+                    <div class="blog-cover">✦</div>
+                    <div class="meta"><span>Design</span><span>12 May</span></div>
+                    <h3>Oltin rang psixologiyasi</h3>
+                    <p>Premium brend hissini kuchaytiruvchi ranglar va teksturalar.</p></a></div>
+                <div class="card reveal delay-1"><a href="{% url 'blog' %}">
+                    <div class="blog-cover">❀</div>
+                    <div class="meta"><span>Heritage</span><span>18 May</span></div>
+                    <h3>Sharqona ornament siri</h3>
+                    <p>Gul va barg naqshlarining dizayndagi nozik ma'nosi.</p></a></div>
+                <div class="card reveal delay-2"><a href="{% url 'blog' %}">
+                    <div class="blog-cover">☕</div>
+                    <div class="meta"><span>Food</span><span>24 May</span></div>
+                    <h3>Dasturxon estetikasi</h3>
+                    <p>Uyda restoran darajasidagi ko'rinish yaratish yo'llari.</p></a></div>
+            </div>
+            <div class="pagination"><a class="page active">1</a><a class="page">2</a><a class="page">›</a></div>
+        </div>
+    </section>
+</main>
+<footer class="footer">
+    <div class="container footer-grid">
+        <div><img class="mini-logo" src="{% static 'images/logo.png' %}" alt="Aziko Market">
+            <h3>AZIKO MARKET</h3>
+            <p>Zamonaviy online market, qulay katalog, tezkor savatcha va ishonchli buyurtma tizimi.</p></div>
+        <div><h4>Sahifalar</h4>
+            <p><a href="{% url 'product' %}">Mahsulotlar</a></p>
+            <p><a href="{% url 'blog' %}">Blog</a></p>
+            <p><a href="{% url 'about' %}">Biz haqimizda</a></p></div>
+        <div><h4>Yordam</h4>
+            <p><a href="{% url 'contact' %}">Aloqa</a></p>
+            <p><a href="{% url 'checkout' %}">Checkout</a></p>
+            <p><a href="{% url 'login' %}">Parolni unutdingizmi?</a></p></div>
+        <div><h4>Aloqa</h4>
+            <p>+998 90 000 00 00</p>
+            <p>hello@azikomarket.uz</p>
+            <p>Toshkent, Uzbekistan</p></div>
+    </div>
+</footer>
+{% include 'includes/ai_widget.html' %}
+</body>
+</html>

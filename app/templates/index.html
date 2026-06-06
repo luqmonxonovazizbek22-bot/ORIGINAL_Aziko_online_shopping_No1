@@ -1,0 +1,185 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bosh sahifa | AZIKO MARKET</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=11">
+</head>
+<body>
+<div class="top-ribbon"></div>
+<nav class="navbar">
+    <div class="container nav-inner">
+        <a class="brand" href="{% url 'index' %}"><img src="{% static 'images/logo.png' %}" alt="Aziko Market logo"></a>
+        <div class="nav-links">
+            <a href="{% url 'index' %}">Home</a>
+            <a href="{% url 'product' %}">Mahsulotlar</a>
+            <a href="{% url 'blog' %}">Blog</a>
+            <a href="{% url 'about' %}">Biz haqimizda</a>
+            <a href="{% url 'contact' %}">Aloqa</a>
+            <a href="{% url 'ai_chat' %}">AI yordam</a>
+        </div>
+        <div class="nav-actions">
+            {% if user.is_authenticated %}<a class="btn-outline" href="{% url 'logout' %}">Chiqish</a>{% else %}<a class="btn-outline" href="{% url 'login' %}">Kirish</a>{% endif %}
+            <a class="btn" href="{% url 'cart' %}">Savatcha {{ cart_items_count }}</a>
+        </div>
+    </div>
+</nav>
+<main>
+    <section class="hero hero-shopping">
+        <div class="container hero-grid">
+            <div class="reveal">
+                <div class="eyebrow">Smart online shopping experience</div>
+                <h1 class="title">Xaridni osonlashtiradigan zamonaviy market</h1>
+                <p class="lead">AZIKO MARKET endi oddiy katalog emas — unda mahsulotlar, savatcha, checkout va sizga mos tavsiya beradigan aqlli AI yordamchi bor.</p>
+                <div class="hero-badges">
+                    <span>⚡ Tez qidiruv</span>
+                    <span>🤖 AI tavsiya</span>
+                    <span>🛒 Qulay checkout</span>
+                    <span>🚚 Yetkazib berish</span>
+                </div>
+                <div class="hero-actions">
+                    <a class="btn" href="{% url 'product' %}">Shoppingni boshlash</a>
+                    <a class="btn-outline" href="{% url 'ai_chat' %}">AI bilan tanlash</a>
+                </div>
+                <div class="hero-stats-grid">
+                    <div class="hero-stat"><strong>{{ hero_stats.products_count }}</strong><span>Mahsulot</span></div>
+                    <div class="hero-stat"><strong>{{ hero_stats.discount_count }}</strong><span>Chegirmali</span></div>
+                    <div class="hero-stat"><strong>{{ hero_stats.popular_count }}</strong><span>Mashhur</span></div>
+                </div>
+            </div>
+            <div class="hero-card hero-dashboard-card reveal delay-1">
+                <div class="hero-dashboard-top">
+                    <div>
+                        <span class="eyebrow">AI Shopping Panel</span>
+                        <h3>Shop + Support + Tavsiya</h3>
+                    </div>
+                    <img class="hero-robot" src="{% static 'images/robot-assistant.svg' %}" alt="AI robot">
+                </div>
+                <div class="hero-dashboard-grid">
+                    <div class="mini-panel glass-gradient">
+                        <span class="mini-label">Bugungi tavsiya</span>
+                        <strong>Qora krossovka</strong>
+                        <p>AI sizga byudjetga mos variant topib beradi.</p>
+                    </div>
+                    <div class="mini-panel glass-gradient alt">
+                        <span class="mini-label">Top mahsulot</span>
+                        <strong>iPhone 15    Pro</strong>
+                        <p>Mahsulot haqida batafsil so'rang yoki taqqoslang.</p>
+                    </div>
+                    <div class="mini-panel glass-gradient pink">
+                        <span class="mini-label">Quick prompts</span>
+                        <p>“500 minggacha quloqchin top”</p>
+                        <p>“Buyurtmam qayerda?”</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="section-head">
+                <div>
+                    <span class="eyebrow">Kategoriyalar</span>
+                    <h2>Tez tanlov bo'limlari</h2>
+                    <p>Haqiqiy online shopga o'xshashi uchun asosiy kategoriyalarni tez topish mumkin.</p>
+                </div>
+            </div>
+            <div class="grid-4">
+                {% for item in category_cards %}
+                    <a class="card category-card reveal" href="{% url 'product' %}?category={{ item.slug }}">
+                        <div class="category-icon">{{ item.icon }}</div>
+                        <h3>{{ item.name }}</h3>
+                        <p>{{ item.count }} ta mahsulot</p>
+                        <span class="category-link">Ko'rish →</span>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="section-head">
+                <div>
+                    <span class="eyebrow">Featured products</span>
+                    <h2>Tanlangan mahsulotlar</h2>
+                    <p>Ombordagi haqiqiy mahsulotlar avtomatik chiqarildi.</p>
+                </div>
+                <a class="btn-outline" href="{% url 'product' %}">Barchasini ko'rish</a>
+            </div>
+            <div class="grid-4">
+                {% for product in featured_products %}
+                    <div class="card product-card reveal delay-1">
+                        <a href="{% url 'product_detail' product.pk %}">
+                            <img class="product-photo" src="{{ product.image_url }}" alt="{{ product.title }}">
+                            <div class="meta"><span>{{ product.category|default:'Mahsulot' }}</span><span>★ {{ product.review }}</span></div>
+                            <h3>{{ product.title }}</h3>
+                            <p>{{ product.description|default:'Sifatli mahsulot'|truncatechars:90 }}</p>
+                            <div class="product-tags">
+                                {% if product.color %}<span>{{ product.color }}</span>{% endif %}
+                                {% if product.sizes %}<span>{{ product.sizes }}</span>{% endif %}
+                                {% if product.discount_percent %}<span>{{ product.discount_percent }}% chegirma</span>{% endif %}
+                            </div>
+                            <div class="meta"><span class="price">{{ product.price }} so'm</span></div>
+                        </a>
+                        <form method="post" action="{% url 'add_to_cart' product.pk %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                            <button class="btn-outline" type="submit">Savatchaga qo'shish</button>
+                        </form>
+                    </div>
+                {% empty %}
+                    <div class="empty-state">Hozircha mahsulot yo'q.</div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container split ai-promo-block">
+            <div class="card ai-promo-card reveal">
+                <span class="eyebrow">AI yordamchi</span>
+                <h2>Robot yordamchi bilan shopping qiling</h2>
+                <p>AI yordamchi endi faqat bitta-ikkita tayyor javob emas. U mahsulot topadi, tavsiya beradi, buyurtmani tekshiradi va operatorga ham ulaydi.</p>
+                <div class="ai-feature-list">
+                    <span>Mahsulot tavsiya</span>
+                    <span>Buyurtma statusi</span>
+                    <span>To'lov va qaytarish</span>
+                    <span>Ovozli yozish</span>
+                </div>
+                <div class="hero-actions">
+                    <a class="btn" href="{% url 'ai_chat' %}">AI chatga o'tish</a>
+                    <a class="btn-outline" href="{% url 'product' %}">Katalogni ko'rish</a>
+                </div>
+            </div>
+            <div class="card ai-visual-card reveal delay-2">
+                <img src="{% static 'images/robot-assistant.svg' %}" alt="AZIKO AI robot" class="robot-promo-image">
+            </div>
+        </div>
+    </section>
+</main>
+<footer class="footer">
+    <div class="container footer-grid">
+        <div><img class="mini-logo" src="{% static 'images/logo.png' %}" alt="Aziko Market">
+            <h3>AZIKO MARKET</h3>
+            <p>Zamonaviy online market, qulay katalog, tezkor savatcha va ishonchli buyurtma tizimi.</p></div>
+        <div><h4>Sahifalar</h4>
+            <p><a href="{% url 'product' %}">Mahsulotlar</a></p>
+            <p><a href="{% url 'blog' %}">Blog</a></p>
+            <p><a href="{% url 'about' %}">Biz haqimizda</a></p></div>
+        <div><h4>Yordam</h4>
+            <p><a href="{% url 'contact' %}">Aloqa</a></p>
+            <p><a href="{% url 'checkout' %}">Checkout</a></p>
+            <p><a href="{% url 'ai_chat' %}">AI Support</a></p></div>
+        <div><h4>Aloqa</h4>
+            <p>+998 90 000 00 00</p>
+            <p>hello@azikomarket.uz</p>
+            <p>Toshkent, Uzbekistan</p></div>
+    </div>
+</footer>
+{% include 'includes/ai_widget.html' %}
+</body>
+</html>

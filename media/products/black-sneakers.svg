@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-label="Black sneakers product image">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#020617"/>
+      <stop offset="0.52" stop-color="#374151"/>
+      <stop offset="1" stop-color="#0ea5e9"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="36%" r="62%">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.78"/>
+      <stop offset="0.45" stop-color="#ffffff" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="shadow" x="-25%" y="-25%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="30" stdDeviation="26" flood-color="#020617" flood-opacity="0.32"/>
+    </filter>
+    <filter id="soft" x="-15%" y="-15%" width="130%" height="130%">
+      <feGaussianBlur stdDeviation="10"/>
+    </filter>
+    <linearGradient id="shine" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.82"/>
+      <stop offset="0.35" stop-color="#ffffff" stop-opacity="0.16"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="900" rx="78" fill="url(#bg)"/>
+  <circle cx="190" cy="120" r="280" fill="url(#glow)"/>
+  <circle cx="1030" cy="760" r="340" fill="#ffffff" opacity="0.10"/>
+  <path d="M98 160 C255 60 405 68 566 130 S894 248 1090 112" fill="none" stroke="#ffffff" stroke-opacity="0.22" stroke-width="7"/>
+  <path d="M90 740 C270 680 420 765 585 728 S910 620 1108 706" fill="none" stroke="#ffffff" stroke-opacity="0.14" stroke-width="5"/>
+
+  <g filter="url(#shadow)">
+    <path d="M276 496 C326 428 360 350 426 330 C477 314 512 356 565 397 C623 443 702 460 810 461 C888 462 934 516 946 582 C838 620 604 642 392 614 C304 602 244 570 276 496Z" fill="#111827"/>
+    <path d="M314 496 C378 508 596 528 912 520 C936 542 950 572 946 582 C838 620 604 642 392 614 C316 604 257 578 276 522 C282 510 294 501 314 496Z" fill="#f8fafc"/>
+    <path d="M350 540 C515 568 740 568 930 548" fill="none" stroke="#cbd5e1" stroke-width="12" stroke-linecap="round"/>
+    <path d="M422 330 C490 376 552 414 650 432 C610 456 506 458 396 430Z" fill="#1f2937"/>
+    <path d="M448 378 L560 474 M512 360 L623 464 M574 400 L702 466" stroke="#f8fafc" stroke-width="14" stroke-linecap="round" opacity="0.90"/>
+    <circle cx="492" cy="394" r="9" fill="#94a3b8"/><circle cx="546" cy="422" r="9" fill="#94a3b8"/><circle cx="604" cy="444" r="9" fill="#94a3b8"/>
+    <path d="M292 589 C434 622 750 630 940 590" fill="none" stroke="#e5e7eb" stroke-width="30" stroke-linecap="round"/>
+  </g>
+
+  <text x="600" y="756" text-anchor="middle" font-size="58" font-weight="900" font-family="Inter, Arial, sans-serif" fill="#ffffff">Urban Step</text>
+  <text x="600" y="812" text-anchor="middle" font-size="25" font-weight="700" font-family="Inter, Arial, sans-serif" fill="#ffffff" opacity="0.82">AZIKO MARKET • mos mahsulot rasmi</text>
+</svg>

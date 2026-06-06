@@ -1,0 +1,220 @@
+{% load static %}
+<div class="ai-widget" id="aiWidget">
+    <button class="ai-toggle" type="button" id="aiToggle">🤖 AI yordam</button>
+    <div class="ai-panel" id="aiPanel" aria-live="polite">
+        <div class="ai-head">
+            <div class="ai-head-info">
+                <img class="ai-robot-avatar" src="{% static 'images/robot-assistant.svg' %}" alt="AI robot">
+                <div>
+                    <strong>AZIKO AI Support</strong>
+                    <span>Database mahsulotlari, buyurtma, FAQ va operator yordami</span>
+                </div>
+            </div>
+            <button type="button" id="aiClose">×</button>
+        </div>
+        <div class="ai-quick-list">
+            <button type="button" class="ai-quick" data-query="Salom, menga telefon uchun quloqchin tavsiya qil">🎧 Quloqchin tavsiya</button>
+            <button type="button" class="ai-quick" data-query="500 ming so'mgacha qora krossovka tavsiya qil">👟 Arzon krossovka</button>
+            <button type="button" class="ai-quick" data-query="Hamma mahsulotlar va narxlarni ko'rsat">🛍️ Katalog</button>
+            <button type="button" class="ai-quick" data-query="10 million so'mgacha telefon tavsiya qil">📱 10 mln telefon</button>
+            <button type="button" class="ai-quick" data-query="iPhone 16 Pro va Samsung Galaxy S25 Ultra ni taqqosla">⚖️ Taqqoslash</button>
+            <button type="button" class="ai-quick" data-query="Chegirmadagi mahsulotlarni ko'rsat">🔥 Chegirmalar</button>
+            <button type="button" class="ai-quick" data-query="O'qish uchun noutbuk tavsiya qil">💻 Noutbuk kerak</button>
+            <button type="button" class="ai-quick" data-query="Aziko Market loyihasi haqida gapirib ber">🚀 Loyiha haqida</button>
+            <button type="button" class="ai-quick" data-query="Qaytarish mumkinmi va yetkazib berish necha kunda?">↩️ FAQ</button>
+        </div>
+        <div class="ai-messages" id="aiMessages">
+            <div class="ai-msg bot">Salom! Men AZIKO MARKET AI yordamchisiman. Mahsulot tavsiya qilaman, narx/rang/kategoriya bo'yicha qidiraman, mahsulotlarni taqqoslayman, savat/checkout/buyurtmani tushuntiraman, loyiha va prezentatsiya haqida ham javob bera olaman.</div>
+        </div>
+        <div class="ai-composer">
+            <form class="ai-form" id="aiForm">{% csrf_token %}
+                <button class="ai-mic" type="button" id="aiMic" title="Ovoz orqali yozish">🎙</button>
+                <select id="aiVoiceLang" class="ai-voice-lang" title="Ovoz tili">
+                    <option value="uz-UZ">UZ</option>
+                    <option value="ru-RU">RU</option>
+                </select>
+                <input id="aiInput" type="text" placeholder="Masalan: telefon uchun quloqchin tavsiya qil..." autocomplete="off">
+                <button type="submit">Yuborish</button>
+            </form>
+            <div class="ai-foot-note">Mikrofon Chrome/Edge brauzerida ovozni textga aylantiradi. Operator javobi admin paneldan yoziladi.</div>
+        </div>
+    </div>
+</div>
+<script>
+(function () {
+    const widget = document.getElementById('aiWidget');
+    if (!widget) return;
+    const toggle = document.getElementById('aiToggle');
+    const closeBtn = document.getElementById('aiClose');
+    const panel = document.getElementById('aiPanel');
+    const form = document.getElementById('aiForm');
+    const input = document.getElementById('aiInput');
+    const messages = document.getElementById('aiMessages');
+    const mic = document.getElementById('aiMic');
+    const voiceLang = document.getElementById('aiVoiceLang');
+    const quickButtons = widget.querySelectorAll('.ai-quick');
+
+    if (widget.closest('.ai-page-card')) {
+        widget.classList.add('embedded');
+        panel.classList.add('open');
+    }
+
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+        return '';
+    }
+
+    function escapeText(value) {
+        return (value || '').toString();
+    }
+
+    function addMessage(text, role, products, meta) {
+        const div = document.createElement('div');
+        div.className = 'ai-msg ' + role;
+        div.textContent = escapeText(text);
+        messages.appendChild(div);
+
+        if (meta && meta.needs_operator) {
+            const notice = document.createElement('div');
+            notice.className = 'ai-operator-notice';
+            notice.textContent = 'Operatorga yuborildi. Admin panelda Support ticket ko‘rinadi.';
+            messages.appendChild(notice);
+        }
+
+        if (role.indexOf('bot') !== -1 && products && products.length) {
+            const list = document.createElement('div');
+            list.className = 'ai-product-list';
+            products.forEach((product) => {
+                const card = document.createElement('a');
+                card.className = 'ai-product-card';
+                card.href = product.url || '#';
+
+                const imgWrap = document.createElement('div');
+                imgWrap.className = 'ai-product-img-wrap';
+                const img = document.createElement('img');
+                img.src = product.image_url || '';
+                img.alt = product.title || 'Mahsulot';
+                imgWrap.appendChild(img);
+                if (product.discount_percent) {
+                    const badge = document.createElement('span');
+                    badge.className = 'ai-discount-badge';
+                    badge.textContent = '-' + product.discount_percent + '%';
+                    imgWrap.appendChild(badge);
+                }
+
+                const info = document.createElement('div');
+                const title = document.createElement('strong');
+                title.textContent = product.title || 'Mahsulot';
+                const category = document.createElement('span');
+                category.textContent = (product.category || 'Mahsulot') + (product.sold_count ? ' • sotilgan: ' + product.sold_count : '');
+                const price = document.createElement('small');
+                price.textContent = product.price_display || '';
+                if (product.old_price_display) {
+                    const oldPrice = document.createElement('em');
+                    oldPrice.textContent = product.old_price_display;
+                    price.appendChild(document.createTextNode(' '));
+                    price.appendChild(oldPrice);
+                }
+
+                info.appendChild(title);
+                info.appendChild(category);
+                info.appendChild(price);
+                card.appendChild(imgWrap);
+                card.appendChild(info);
+                list.appendChild(card);
+            });
+            messages.appendChild(list);
+        }
+
+        messages.scrollTop = messages.scrollHeight;
+    }
+
+    async function sendMessage(text) {
+        if (!text) return;
+        input.value = '';
+        addMessage(text, 'user');
+        addMessage('Javob tayyorlanmoqda...', 'bot loading');
+        try {
+            const response = await fetch('{% url "ai_chat_api" %}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken') || (document.querySelector('[name=csrfmiddlewaretoken]') || {}).value || ''
+                },
+                body: JSON.stringify({message: text})
+            });
+            if (!response.ok) throw new Error('AI API status: ' + response.status);
+            const data = await response.json();
+            const loading = messages.querySelector('.loading');
+            if (loading) loading.remove();
+            addMessage(data.answer || 'Javob topilmadi.', data.operator_reply ? 'bot operator' : 'bot', data.products || [], data);
+        } catch (err) {
+            const loading = messages.querySelector('.loading');
+            if (loading) loading.remove();
+            addMessage('Xatolik: AI API javob bermadi. Terminalda runserver ishlayotganini va python manage.py migrate qilinganini tekshiring.', 'bot');
+        }
+    }
+
+    if (toggle) toggle.addEventListener('click', () => {
+        panel.classList.toggle('open');
+    });
+    if (closeBtn) closeBtn.addEventListener('click', () => {
+        if (!widget.classList.contains('embedded')) {
+            panel.classList.remove('open');
+        }
+    });
+
+    form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        await sendMessage(input.value.trim());
+    });
+
+    quickButtons.forEach((button) => {
+        button.addEventListener('click', async function () {
+            const text = this.dataset.query || this.textContent.trim();
+            input.value = text;
+            await sendMessage(text);
+        });
+    });
+
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (SpeechRecognition && mic) {
+        let recognition = null;
+        function makeRecognition() {
+            const instance = new SpeechRecognition();
+            instance.lang = voiceLang ? voiceLang.value : 'uz-UZ';
+            instance.interimResults = false;
+            instance.maxAlternatives = 1;
+            instance.onstart = function () {
+                mic.classList.add('listening');
+                mic.textContent = '🔴';
+            };
+            instance.onend = function () {
+                mic.classList.remove('listening');
+                mic.textContent = '🎙';
+            };
+            instance.onerror = function () {
+                mic.classList.remove('listening');
+                mic.textContent = '🎙';
+            };
+            instance.onresult = async function (event) {
+                const transcript = event.results[0][0].transcript;
+                input.value = transcript;
+                await sendMessage(transcript);
+            };
+            return instance;
+        }
+        mic.addEventListener('click', function () {
+            recognition = makeRecognition();
+            recognition.start();
+        });
+    } else if (mic) {
+        mic.title = 'Bu brauzer voice inputni qo‘llamaydi';
+        mic.addEventListener('click', function () {
+            addMessage('Brauzeringiz voice inputni qo‘llamayapti. Chrome yoki Edge ishlating.', 'bot');
+        });
+    }
+})();
+</script>

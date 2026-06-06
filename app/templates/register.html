@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | AZIKO MARKET</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=11">
+</head>
+<body>
+<div class="top-ribbon"></div>
+<nav class="navbar"><div class="container nav-inner"><a class="brand" href="{% url 'index' %}"><img src="{% static 'images/logo.png' %}" alt="Aziko Market logo"></a><div class="nav-links"><a href="{% url 'index' %}">Home</a><a href="{% url 'product' %}">Mahsulotlar</a><a href="{% url 'blog' %}">Blog</a><a href="{% url 'about' %}">Biz haqimizda</a><a href="{% url 'contact' %}">Aloqa</a><a href="{% url 'ai_chat' %}">AI yordam</a></div><div class="nav-actions"><a class="btn-outline" href="{% url 'login' %}">Kirish</a><a class="btn" href="{% url 'cart' %}">Savatcha</a></div></div></nav>
+<main><section class="section"><div class="container">
+    <form class="form-card reveal" method="post">{% csrf_token %}
+        <div style="text-align:center"><img class="mini-logo" src="{% static 'images/logo.png' %}" alt="Aziko Market" style="margin:0 auto 14px"><span class="eyebrow">Account</span><h1>Ro'yxatdan o'tish</h1></div>
+        {% if messages %}<div class="messages">{% for message in messages %}<div class="message {{ message.tags }}">{{ message }}</div>{% endfor %}</div>{% endif %}
+        <div class="form-grid">
+            <input class="input" name="full_name" placeholder="Ism familiya">
+            <input class="input" name="email" placeholder="Email" type="email" required>
+            <input class="input" name="password" placeholder="Parol" type="password" required>
+            <input class="input" name="password2" placeholder="Parolni qayta yozing" type="password" required>
+            <button class="btn" type="submit">Akkaunt yaratish</button>
+            <a class="btn-outline" href="{% url 'login' %}">Kirish</a>
+        </div>
+    </form>
+</div></section></main>
+<footer class="footer"><div class="container footer-grid"><div><img class="mini-logo" src="{% static 'images/logo.png' %}" alt="Aziko Market"><h3>AZIKO MARKET</h3><p>Zamonaviy online market va AI support.</p></div><div><h4>Sahifalar</h4><p><a href="{% url 'product' %}">Mahsulotlar</a></p><p><a href="{% url 'blog' %}">Blog</a></p></div><div><h4>Yordam</h4><p><a href="{% url 'contact' %}">Aloqa</a></p><p><a href="{% url 'checkout' %}">Checkout</a></p></div><div><h4>Aloqa</h4><p>+998 90 000 00 00</p><p>hello@azikomarket.uz</p></div></div></footer>
+{% include 'includes/ai_widget.html' %}
+</body>
+</html>

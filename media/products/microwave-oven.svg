@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-label="Microwave oven product image">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#1e293b"/>
+      <stop offset="0.52" stop-color="#64748b"/>
+      <stop offset="1" stop-color="#f97316"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="36%" r="62%">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.78"/>
+      <stop offset="0.45" stop-color="#ffffff" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="shadow" x="-25%" y="-25%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="30" stdDeviation="26" flood-color="#020617" flood-opacity="0.32"/>
+    </filter>
+    <filter id="soft" x="-15%" y="-15%" width="130%" height="130%">
+      <feGaussianBlur stdDeviation="10"/>
+    </filter>
+    <linearGradient id="shine" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.82"/>
+      <stop offset="0.35" stop-color="#ffffff" stop-opacity="0.16"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="900" rx="78" fill="url(#bg)"/>
+  <circle cx="190" cy="120" r="280" fill="url(#glow)"/>
+  <circle cx="1030" cy="760" r="340" fill="#ffffff" opacity="0.10"/>
+  <path d="M98 160 C255 60 405 68 566 130 S894 248 1090 112" fill="none" stroke="#ffffff" stroke-opacity="0.22" stroke-width="7"/>
+  <path d="M90 740 C270 680 420 765 585 728 S910 620 1108 706" fill="none" stroke="#ffffff" stroke-opacity="0.14" stroke-width="5"/>
+
+  <g filter="url(#shadow)">
+    <rect x="196" y="214" width="808" height="380" rx="48" fill="#f8fafc"/>
+    <rect x="235" y="252" width="520" height="304" rx="30" fill="#dbeafe"/>
+    <rect x="267" y="282" width="456" height="244" rx="22" fill="#0f172a" opacity="0.90"/>
+    <path d="M276 296 C410 238 594 262 714 376 L714 526 L276 526 Z" fill="url(#shine)" opacity="0.28"/>
+    <rect x="786" y="254" width="170" height="302" rx="28" fill="#e2e8f0"/>
+    <rect x="820" y="286" width="102" height="42" rx="12" fill="#0f172a"/>
+    <circle cx="870" cy="390" r="52" fill="#cbd5e1"/>
+    <circle cx="870" cy="390" r="31" fill="#f8fafc"/>
+    <circle cx="870" cy="490" r="28" fill="#cbd5e1"/>
+    <rect x="246" y="590" width="72" height="36" rx="18" fill="#cbd5e1"/>
+    <rect x="882" y="590" width="72" height="36" rx="18" fill="#cbd5e1"/>
+  </g>
+  <path d="M400 385 C356 340 392 298 432 330 C462 353 437 390 474 416 C512 444 498 488 450 493" fill="none" stroke="#f97316" stroke-width="14" stroke-linecap="round" opacity="0.85"/>
+  <path d="M532 376 C500 332 550 295 586 331 C622 366 562 398 612 440 C650 472 620 512 573 499" fill="none" stroke="#fbbf24" stroke-width="14" stroke-linecap="round" opacity="0.85"/>
+
+  <text x="600" y="756" text-anchor="middle" font-size="58" font-weight="900" font-family="Inter, Arial, sans-serif" fill="#ffffff">Mikroto'lqinli Pech</text>
+  <text x="600" y="812" text-anchor="middle" font-size="25" font-weight="700" font-family="Inter, Arial, sans-serif" fill="#ffffff" opacity="0.82">AZIKO MARKET • mos mahsulot rasmi</text>
+</svg>
