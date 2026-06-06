@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="640" viewBox="0 0 640 640">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#37c8ff"/>
+    <stop offset="45%" stop-color="#21d6a1"/>
+    <stop offset="100%" stop-color="#7c3aed"/>
+  </linearGradient>
+  <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95"/>
+    <stop offset="100%" stop-color="#eaf7ff" stop-opacity="0.75"/>
+  </linearGradient>
+</defs>
+<rect width="640" height="640" rx="150" fill="url(#bg)"/>
+<circle cx="535" cy="120" r="82" fill="#ffffff" fill-opacity="0.16"/>
+<circle cx="115" cy="525" r="96" fill="#ffffff" fill-opacity="0.12"/>
+<g transform="translate(120 80)">
+  <rect x="90" y="70" width="220" height="210" rx="70" fill="url(#glass)" stroke="#ffffff" stroke-opacity="0.8" stroke-width="6"/>
+  <rect x="120" y="110" width="160" height="72" rx="36" fill="#12223b" fill-opacity="0.88"/>
+  <circle cx="165" cy="146" r="18" fill="#37c8ff"/>
+  <circle cx="235" cy="146" r="18" fill="#21d6a1"/>
+  <rect x="175" y="28" width="48" height="60" rx="20" fill="#ffffff" fill-opacity="0.92"/>
+  <circle cx="199" cy="18" r="26" fill="#ff4fb8"/>
+  <rect x="146" y="206" width="108" height="22" rx="11" fill="#7c3aed" fill-opacity="0.84"/>
+  <rect x="110" y="290" width="180" height="140" rx="48" fill="url(#glass)" stroke="#ffffff" stroke-opacity="0.75" stroke-width="6"/>
+  <circle cx="200" cy="360" r="34" fill="#12223b" fill-opacity="0.88"/>
+  <path d="M104 322 C56 322, 36 352, 36 394 C36 432, 64 456, 98 456 L120 456 L120 410 L108 410 C90 410, 76 398, 76 382 C76 364, 88 352, 108 352 L110 352 Z" fill="#ffffff" fill-opacity="0.82"/>
+  <path d="M296 322 C344 322, 364 352, 364 394 C364 432, 336 456, 302 456 L280 456 L280 410 L292 410 C310 410, 324 398, 324 382 C324 364, 312 352, 292 352 L290 352 Z" fill="#ffffff" fill-opacity="0.82"/>
+  <path d="M170 430 L148 502" stroke="#ffffff" stroke-width="22" stroke-linecap="round"/>
+  <path d="M230 430 L252 502" stroke="#ffffff" stroke-width="22" stroke-linecap="round"/>
+  <path d="M130 460 L90 520" stroke="#ffffff" stroke-width="18" stroke-linecap="round"/>
+  <path d="M270 460 L310 520" stroke="#ffffff" stroke-width="18" stroke-linecap="round"/>
+</g>
+<text x="320" y="596" text-anchor="middle" font-size="44" font-family="Arial, sans-serif" font-weight="700" fill="#ffffff">AZIKO AI</text>
+</svg>
